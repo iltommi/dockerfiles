@@ -1,13 +1,12 @@
 FROM fedora:27
 
-RUN dnf clean metadata
 
+RUN dnf clean all
 RUN dnf -y --nogpgcheck update; exit 0
-
 RUN dnf -y install cmake git mingw32-qt5* mingw32-gcc-c++ mingw32-gcc mingw32-gcc-gfortran mingw32-libgomp mingw32-gsl mingw32-zlib mingw32-nsis unzip wget autoconf automake bash bison bzip2 flex gcc-c++ gdk-pixbuf2-devel gettext git gperf intltool make sed libffi-devel libtool openssl-devel p7zip patch perl pkgconfig python ruby scons unzip wget xz gtk-doc dh-autoreconf mingw32-portablexdr pandoc 
-
 RUN dnf -y install fedora-repos-rawhide
-RUN dnf -y --disablerepo=* --enablerepo=rawhide --releasever=28 install mingw32-python2 mingw32-python2-numpy mingw32-cfitsio
+RUN dnf clean all
+RUN dnf -y --nogpgcheck --releasever=rawhide install mingw32-python2 mingw32-python2-numpy mingw32-cfitsio
 
 #fftw mingw32-fftw
 RUN /bin/bash -c 'wget http://www.fftw.org/fftw-3.3.6-pl2.tar.gz;\

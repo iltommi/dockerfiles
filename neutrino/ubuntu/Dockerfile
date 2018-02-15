@@ -1,6 +1,7 @@
-FROM ubuntu:17
+FROM ubuntu:17.10
 
 RUN apt-get update -qq && apt-get install -yy git pandoc cmake qt5-default libnetpbm10-dev libhdf5-dev libfftw3-dev python-dev libhdf4-dev  g++ build-essential libtiff5-dev libgsl-dev qtmultimedia5-dev qttools5-dev libqt5svg5-dev libqt5scripttools5 qtscript5-dev libqt5multimediawidgets5 qttools5-dev-tools lsb-release libcfitsio-dev libhdf4-dev libhdf5-dev libhdf5-100 python-numpy
+RUN apt-get install -yy opencl-clhpp-headers libclfft2 libclc-dev opencl-c-headers ocl-icd-libopencl1  libclc-dev beignet opencl-headers ocl-icd-opencl-dev libclfft-dev
 
 RUN git clone --recursive https://github.com/NeutrinoToolkit/Neutrino.git
 RUN cd Neutrino/PythonQt && mkdir Linux && cd Linux && cmake -UQT_QMAKE_EXECUTABLE -DPythonQt_Wrap_QtAll=TRUE -DQt5_DIR=/usr/lib/x86_64-linux-gnu/cmake .. && make -j$(nproc) install && cd ../..
