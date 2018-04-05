@@ -1,13 +1,11 @@
-# Smilei docker 
-
-This is a copy of Smilei https://smileipic.github.io/Smilei built on ubuntu
+# Smilei docker built on ubuntu
 
 ```bash
-docker build https://github.com/iltommi/dockerfiles.git\#:Smilei/ubuntu -t smileiUbuntu
+docker build https://github.com/iltommi/dockerfiles.git\#:Smilei/ubuntu -t smilei:ubuntu
 ```
 
 To lauch the image and access the content of the local directory (`pwd`) on the docker image (on `/mnt`):
 ```
-docker run -v $(pwd):/mnt -i -t smileiUbuntu bash
+docker run -v $(pwd):/mnt -i -t smilei:ubuntu bash
 ```
  
