@@ -1,0 +1,26 @@
+version: '2'
+services:
+   debian:
+     privileged: true
+     build:
+        context: ./debian
+     command: /build.sh
+     entrypoint: /build.sh
+     volumes:
+       - .:/mnt 
+   cross32:
+     privileged: true
+     build:
+        context: ./cross32
+     command: /build.sh
+     entrypoint: /build.sh
+     volumes:
+       - .:/mnt 
+   cross64:
+     privileged: true
+     build:
+        context: ./cross64
+     command: /build.sh
+     entrypoint: /build.sh
+     volumes:
+       - .:/mnt 
