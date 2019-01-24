@@ -7,7 +7,7 @@ cd Neutrino/PythonQt
 mkdir pippo && cd pippo 
 cmake -UQT_QMAKE_EXECUTABLE -DPythonQt_Wrap_QtAll=TRUE -DQt5_DIR=/usr/lib/x86_64-linux-gnu/cmake ..
 make -j$(nproc) install
-cd ..
+cd ../..
 mkdir pippo && cd pippo 
 cmake ..
 make -j$(nproc) package

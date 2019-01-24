@@ -24,3 +24,11 @@ services:
      entrypoint: /build.sh
      volumes:
        - .:/mnt 
+   appimage:
+     privileged: true
+     build:
+        context: ./appimage
+     command: /build.sh
+     entrypoint: /build.sh
+     volumes:
+       - .:/mnt 

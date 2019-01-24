@@ -9,7 +9,7 @@ RUN dnf -y install gcc gcc-c++ python2 python2-devel qconf qt5-qtbase* qt5-qtmul
 RUN dnf -y install git
 
 # Neutrino
-RUN git clone --recursive -j$(nproc) https://github.com/NeutrinoToolkit/Neutrino.git ; \
+RUN git clone --recursive https://github.com/NeutrinoToolkit/Neutrino.git ; \
     cd Neutrino/PythonQt && mkdir cross && cd cross; \
     cmake .. -DPythonQt_Wrap_QtAll=TRUE -DQt5_DIR=/usr/lib64/cmake; make -j4 install; \
     make -j$(nproc) install; cd ../.. ; \
