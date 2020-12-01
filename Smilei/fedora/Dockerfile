@@ -1,14 +1,14 @@
 FROM fedora:latest
 
-RUN dnf -y update && dnf install -y gcc-c++ hdf5-openmpi hdf5-openmpi-devel openmpi-devel git which findutils python python-devel; \
-    dnf install -y python3-h5py ipython python3-pint python3-sphinx python3-matplotlib 
+RUN dnf -y update && dnf install -y gcc-c++ hdf5-openmpi hdf5-openmpi-devel openmpi-devel git which findutils python python-devel python3-h5py ipython python3-pint python3-sphinx python3-matplotlib 
 
 RUN echo "module load mpi" > /etc/profile.d/zz-modules-mpi.sh 
 
-RUN git clone https://github.com/SmileiPIC/Smilei.git
+ENV PATH=/usr/lib64/openmpi/bin:$PATH
 
-RUN echo "export PATH=/usr/lib64/openmpi/bin:/Smilei:\$PATH; export PS1='Smilei \w > '" >> ~/.bash_profile
+RUN useradd -ms /bin/bash smilei
 
-RUN bash -l -c "cd Smilei && make -j$(nproc) && make doc happi"
+USER smilei
+WORKDIR /home/smilei
 
-CMD /bin/bash -l
+RUN git clone https://github.com/SmileiPIC/Smilei.git && cd Smilei && make -j$(nproc) && make doc happi
