@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora:32
 
 RUN dnf clean all
 RUN dnf -y --nogpgcheck update

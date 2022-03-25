@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 set -x
-
-#fftw mingw32-fftw
 wget http://www.fftw.org/fftw-3.3.6-pl2.tar.gz
 tar -zxvf fftw-3.3.6-pl2.tar.gz
 cd fftw-3.3.6-pl2
@@ -11,8 +9,8 @@ make -j $(nproc) bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS=
 make install bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS=   
 cd ..
 
-wget https://support.hdfgroup.org/ftp/HDF/releases/HDF4.2.10/src/hdf-4.2.10.tar.bz2 && tar -jxvf hdf-4.2.10.tar.bz2
-cd hdf-4.2.10
+wget https://support.hdfgroup.org/ftp/HDF/releases/HDF4.2.10/src/hdf-4.2.10.tar.bz2
+tar -jxvf hdf-4.2.10.tar.bz2 && cd hdf-4.2.10
 wget https://raw.githubusercontent.com/iltommi/mxe/master/src/hdf4-1-portability-fixes.patch
 wget https://raw.githubusercontent.com/iltommi/mxe/master/src/hdf4-2-dllimport.patch
 patch -p1 -u < hdf4-1-portability-fixes.patch
@@ -27,16 +25,17 @@ make -C mfhdf/libsrc -j $(nproc) LDFLAGS="-no-undefined -ldf"
 make -C mfhdf/libsrc -j 1 install
 cd ..
 
-# Neutrino
 git clone --recursive -j$(nproc) https://github.com/NeutrinoToolkit/Neutrino.git 
-cd Neutrino/PythonQt 
-git checkout patched-9
+# cd Neutrino/PythonQt 
+# git checkout patched-9
+# mkdir cross && cd cross
+# mingw64-cmake .. -DQt5_DIR=/usr/x86_64-w64-mingw32/sys-root/mingw/lib/cmake/Qt5 -DPythonQt_Wrap_QtAll=TRUE
+# make -j$(nproc) install
+# cd ../.. 
+cd Neutrino
 mkdir cross && cd cross
-mingw64-cmake .. -DQt5_DIR=/usr/x86_64-w64-mingw32/sys-root/mingw/lib/cmake/Qt5 -DPythonQt_Wrap_QtAll=TRUE
-make -j$(nproc) install
-cd ../.. 
-mkdir cross && cd cross
-mingw64-cmake .. && make -j$(nproc) package
+mingw64-cmake -DNEUTRINO_SKIP_PLUGINS='Shell' .. 
+make -j$(nproc) package
  
 cp Neutrino*.exe /mnt
 

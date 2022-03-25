@@ -2,7 +2,8 @@
 set -e
 set -x
 wget http://www.fftw.org/fftw-3.3.6-pl2.tar.gz
-tar -zxvf fftw-3.3.6-pl2.tar.gz && cd fftw-3.3.6-pl2
+tar -zxvf fftw-3.3.6-pl2.tar.gz
+cd fftw-3.3.6-pl2
 mingw32-configure --disable-static --enable-shared --enable-threads --with-combined-threads 
 make -j $(nproc) bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS= 
 make install bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS=  
@@ -32,7 +33,7 @@ git clone --recursive -j$(nproc) https://github.com/NeutrinoToolkit/Neutrino.git
 # cd ../.. 
 cd Neutrino
 mkdir cross && cd cross
-mingw32-cmake ..
+mingw32-cmake -DNEUTRINO_SKIP_PLUGINS='Shell;Function' ..
 make -j$(nproc) package
 cp Neutrino*.exe /mnt
 
