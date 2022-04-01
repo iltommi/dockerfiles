@@ -15,10 +15,10 @@ win: clean_win
 
 .ONESHELL:
 mac: clean_mac
-	cd vagrant3
-	vagrant up
-	scp -P 2222 -i .vagrant/machines/default/virtualbox/private_key -o StrictHostKeyChecking=no vagrant@localhost:Neutrino-*.dmg ..
-	vagrant halt
+	cd vagrant3; vagrant up
+	pwd
+	scp -P 2222 -i vagrant3/.vagrant/machines/default/virtualbox/private_key -o StrictHostKeyChecking=no vagrant@localhost:Neutrino-*.dmg .
+	cd vagrant3; vagrant halt
 
 clean_mac:
 	rm -f Neutrino-MacOS*.dmg
