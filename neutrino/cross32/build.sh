@@ -33,7 +33,7 @@ git clone --recursive -j$(nproc) https://github.com/NeutrinoToolkit/Neutrino.git
 # cd ../.. 
 cd Neutrino
 mkdir cross && cd cross
-mingw32-cmake -DNEUTRINO_SKIP_PLUGINS='Shell;Function' -DCMAKE_SHARED_LINKER_FLAGS="-flto" ..
+mingw32-cmake -DNEUTRINO_SKIP_PLUGINS='Shell;Function' ..
 make -j$(nproc) package
 cp Neutrino*.exe /mnt
 
