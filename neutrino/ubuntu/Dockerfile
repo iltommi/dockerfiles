@@ -1,8 +1,15 @@
-FROM ubuntu:17.10
+FROM ubuntu:22.04
 
-RUN apt-get update -qq && apt-get install -yy git pandoc cmake qt5-default libnetpbm10-dev libhdf5-dev libfftw3-dev python-dev libhdf4-dev  g++ build-essential libtiff5-dev libgsl-dev qtmultimedia5-dev qttools5-dev libqt5svg5-dev libqt5scripttools5 qtscript5-dev libqt5multimediawidgets5 qttools5-dev-tools lsb-release libcfitsio-dev libhdf4-dev libhdf5-dev libhdf5-100 python-numpy
-RUN apt-get install -yy opencl-clhpp-headers libclfft2 libclc-dev opencl-c-headers ocl-icd-libopencl1  libclc-dev beignet opencl-headers ocl-icd-opencl-dev libclfft-dev
+ARG DEBIAN_FRONTEND=noninteractive
 
-RUN git clone --recursive https://github.com/NeutrinoToolkit/Neutrino.git
-RUN cd Neutrino/PythonQt && mkdir Linux && cd Linux && cmake -UQT_QMAKE_EXECUTABLE -DPythonQt_Wrap_QtAll=TRUE -DQt5_DIR=/usr/lib/x86_64-linux-gnu/cmake .. && make -j$(nproc) install && cd ../..
-RUN cd Neutrino && mkdir Linux && cd Linux && cmake .. && make -j$(nproc) package
+RUN apt-get update -qq
+RUN apt-get install -yy file git pandoc cmake libnetpbm10-dev libhdf5-dev libfftw3-dev libhdf4-dev  g++ build-essential libtiff5-dev libgsl-dev qtmultimedia5-dev qttools5-dev libqt5svg5-dev libqt5scripttools5 qtscript5-dev libqt5multimediawidgets5 qttools5-dev-tools lsb-release libcfitsio-dev libhdf4-dev libhdf5-dev libhdf5-103
+RUN git clone https://github.com/NeutrinoToolkit/Neutrino.git
+RUN mkdir ubuntu
+WORKDIR "/ubuntu" 
+RUN cmake ../Neutrino -DNEUTRINO_SKIP_PLUGINS='Shell'
+RUN make -j$(nproc) package
+RUN make install
+WORKDIR "/"
+
+# docker run -it --env="DISPLAY=host.docker.internal:0" -v /tmp/.X11-unix:/tmp/.X11-unix:rw ubu
