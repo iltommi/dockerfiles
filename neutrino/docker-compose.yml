@@ -1,34 +1,26 @@
 version: '2'
 services:
-#   debian:
+#   cross32:
 #     privileged: true
 #     build:
-#        context: ./debian
+#        context: ./cross32
 #     command: /build.sh
 #     entrypoint: /build.sh
 #     volumes:
 #       - .:/mnt 
-   cross32:
-     privileged: true
-     build:
-        context: ./cross32
-     command: /build.sh
-     entrypoint: /build.sh
-     volumes:
-       - .:/mnt 
-   cross64:
-     privileged: true
-     build:
-        context: ./cross64
-     command: /build.sh
-     entrypoint: /build.sh
-     volumes:
-       - .:/mnt 
-#   appimage:
+#   cross64:
 #     privileged: true
 #     build:
-#        context: ./appimage
+#        context: ./cross64
 #     command: /build.sh
 #     entrypoint: /build.sh
 #     volumes:
 #       - .:/mnt 
+   ubuntu:
+     privileged: true
+     build:
+        context: ./ubuntu
+     command: /build.sh
+     entrypoint: /build.sh
+     volumes:
+       - .:/mnt 

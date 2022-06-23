@@ -1,13 +1,13 @@
 
 
-default: backup win mac
+default: backup dock mac
 
 backup:
 	mkdir -p backup/new
 	mv Neutrino*.exe Neutrino*.dmg backup/new
 	mv backup/new backup/`date +"%Y-%m-%d-%H-%M"` 
 	
-win: clean_win
+dock: clean_dock
 	docker-compose down
 	docker-compose build
 	docker-compose up
@@ -24,7 +24,7 @@ clean_mac:
 	rm -f Neutrino-MacOS*.dmg
 	rm -f vagrant3/shared/*
 
-clean_win:
-	rm -f Neutrino-Windows-x86*.exe
+clean_dock:
+	rm -f Neutrino-*.exe Neutrino-*.deb
 		
-clean: clean_mac clean_win
+clean: clean_mac clean_dock
