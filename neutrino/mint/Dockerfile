@@ -1,7 +1,10 @@
-FROM vcatechnology/linux-mint:18.3
+FROM vcatechnology/linux-mint:latest
 
-RUN apt-get update -qq && apt-get install -yy git pandoc cmake qt5-default libnetpbm10-dev libhdf5-dev libfftw3-dev python-dev libhdf4-dev  g++ build-essential libtiff5-dev libgsl-dev qtmultimedia5-dev qttools5-dev libqt5svg5-dev libqt5scripttools5 qtscript5-dev libqt5multimediawidgets5 qttools5-dev-tools lsb-release libcfitsio-dev libhdf4-dev libhdf5-dev libhdf5-10 python-numpy libqt5opengl5-dev libqt5webkit5-dev
+ARG DEBIAN_FRONTEND=noninteractive
 
-RUN git clone --recursive https://github.com/NeutrinoToolkit/Neutrino.git
-RUN cd Neutrino/PythonQt && mkdir Linux && cd Linux && cmake -UQT_QMAKE_EXECUTABLE -DPythonQt_Wrap_QtAll=TRUE -DQt5_DIR=/usr/lib/x86_64-linux-gnu/cmake .. && make -j$(nproc) install && cd ../..
-RUN cd Neutrino && mkdir Linux && cd Linux && cmake .. && make -j$(nproc) package
+RUN apt-get update -qq
+RUN apt-get install -yy file git pandoc cmake libnetpbm10-dev libhdf5-dev libfftw3-dev libhdf4-dev  g++ build-essential libtiff5-dev libgsl-dev qtmultimedia5-dev qttools5-dev libqt5svg5-dev libqt5scripttools5 qtscript5-dev libqt5multimediawidgets5 qttools5-dev-tools lsb-release libcfitsio-dev libhdf4-dev libhdf5-dev libhdf5-10
+
+ADD build.sh build.sh
+
+# docker run -it --env="DISPLAY=host.docker.internal:0" -v /tmp/.X11-unix:/tmp/.X11-unix:rw ubu

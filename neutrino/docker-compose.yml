@@ -1,25 +1,43 @@
 version: '2'
 services:
-#   cross32:
-#     privileged: true
-#     build:
-#        context: ./cross32
-#     command: /build.sh
-#     entrypoint: /build.sh
-#     volumes:
-#       - .:/mnt 
-#   cross64:
-#     privileged: true
-#     build:
-#        context: ./cross64
-#     command: /build.sh
-#     entrypoint: /build.sh
-#     volumes:
-#       - .:/mnt 
-   ubuntu:
+# linux cross compile for windows
+ cross32:
+   privileged: true
+   build:
+      context: ./cross32
+   command: /build.sh
+   entrypoint: /build.sh
+   volumes:
+     - .:/mnt 
+ cross64:
+   privileged: true
+   build:
+      context: ./cross64
+   command: /build.sh
+   entrypoint: /build.sh
+   volumes:
+     - .:/mnt 
+# linux deb variants
+  ubuntu:
+    privileged: true
+    build:
+       context: ./ubuntu
+    command: /build.sh
+    entrypoint: /build.sh
+    volumes:
+      - .:/mnt 
+   debian:
      privileged: true
      build:
-        context: ./ubuntu
+        context: ./debian
+     command: /build.sh
+     entrypoint: /build.sh
+     volumes:
+       - .:/mnt 
+   mint:
+     privileged: true
+     build:
+        context: ./mint
      command: /build.sh
      entrypoint: /build.sh
      volumes:
