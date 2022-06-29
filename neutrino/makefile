@@ -4,7 +4,7 @@ default: backup dock mac
 
 backup:
 	mkdir -p backup/new
-	mv Neutrino*.exe Neutrino*.dmg backup/new
+	mv Neutrino*.exe Neutrino*.dmg Neutrino*.deb Neutrino*.rpm backup/new
 	mv backup/new backup/`date +"%Y-%m-%d-%H-%M"` 
 	
 dock: clean_dock
@@ -25,6 +25,6 @@ clean_mac:
 	rm -f vagrant3/shared/*
 
 clean_dock:
-	rm -f Neutrino-*.exe Neutrino-*.deb
+	rm -f Neutrino-*.exe Neutrino-*.deb Neutrino-*.rpm
 		
 clean: clean_mac clean_dock

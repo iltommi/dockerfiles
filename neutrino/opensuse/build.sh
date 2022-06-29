@@ -6,5 +6,5 @@ cd Neutrino
 mkdir build && cd build
 cmake -DNEUTRINO_SKIP_PLUGINS='Shell' ..
 make package
-cp Neutrino*.deb /mnt
+cp Neutrino*.rpm /mnt
 
