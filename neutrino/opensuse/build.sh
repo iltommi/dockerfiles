@@ -8,3 +8,6 @@ cmake -DNEUTRINO_SKIP_PLUGINS='Shell' ..
 make package
 cp Neutrino*.rpm /mnt
 
+
+
+

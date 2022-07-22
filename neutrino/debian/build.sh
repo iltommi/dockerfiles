@@ -3,7 +3,7 @@ set -e
 set -x
 git clone https://github.com/NeutrinoToolkit/Neutrino.git
 cd Neutrino
-mkdir ubuntu && cd ubuntu
+mkdir build && cd build
 cmake -DNEUTRINO_SKIP_PLUGINS='Shell' ..
 make package
 cp Neutrino*.deb /mnt

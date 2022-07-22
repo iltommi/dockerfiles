@@ -6,4 +6,7 @@ RUN dnf -y install cmake git mingw32-qt5* mingw32-gcc-c++ mingw32-gcc mingw32-gc
 
 # mingw32-python2 mingw32-python2-numpy 
 
+ADD pre.sh pre.sh
+RUN sh /pre.sh
+
 ADD build.sh build.sh
