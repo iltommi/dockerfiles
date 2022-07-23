@@ -1,35 +1,8 @@
-FROM centos:7
-#Derived from official TeamCity image
-LABEL modified "Alexis Jeandet <alexis.jeandet@member.fsf.org>"
+FROM ubuntu:18.04
 
-RUN yum install -y centos-release-scl wget git freetype libpng fontconfig \
-                   libX11 mesa-libGL mesa-libEGL-devel mesa-libGL-devel \
-                   mesa-libGLU-devel mesa-libGLw-devel cups-libs mariadb-libs \
-                   postgresql-libs file
+RUN DEBIAN_FRONTEND=noninteractive
+RUN apt-get update -qq
+RUN apt-get install -yy wget file git pandoc cmake libnetpbm10-dev libhdf5-dev libfftw3-dev libhdf4-dev g++ build-essential libtiff5-dev libgsl-dev qt5-default qtmultimedia5-dev qttools5-dev libqt5svg5-dev libqt5scripttools5 qtscript5-dev libqt5multimediawidgets5 qttools5-dev-tools libqt5multimedia5 libqt5multimedia5-plugins lsb-release libcfitsio-dev libhdf4-dev libhdf5-dev libhdf5-100
 
-RUN yum install -y devtoolset-7-gcc \
-                   devtoolset-7-gcc-c++ \
-                   rh-python36-python-devel \
-                   rh-python36-python-pip
-
-ADD https://raw.githubusercontent.com/Slicer/SlicerBuildEnvironment/master/Docker/qt5-centos7/qt-installer-noninteractive.qs /
-
-RUN curl -LO http://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run && \
-    chmod u+x qt-unified-linux-x64-online.run && \
-  ./qt-unified-linux-x64-online.run --verbose --platform minimal --script ./qt-installer-noninteractive.qs && \
-  rm -f qt-installer-noninteractive.qs qt-unified-linux-x64-online.run && rm -rf /opt/qt/Docs /opt/qt/Examples /opt/qt/Tools 
-
-RUN source /opt/rh/devtoolset-7/enable && source /opt/rh/rh-python36/enable && pip3 install --user meson ninja
-RUN wget https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage && \
-    chmod +x  linuxdeployqt-continuous-x86_64.AppImage && ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract && \
-    ln -s /squashfs-root/AppRun /usr/bin/linuxdeployqt 
-
-ENV PKG_CONFIG_PATH="/opt/qt/5.11.2/gcc_64/lib/pkgconfig:/opt/rh/rh-python36/root/lib64/pkgconfig"
-ENV PATH="/root/.local/bin:/opt/qt/5.11.2/gcc_64/bin:${PATH}"
-
-
-RUN yum install -y epel-release
-RUN yum install -y which gcc gcc-c++ python3-devel libtiff-devel gsl-devel redhat-lsb-core blas-devel pandoc hdf-devel hdf5-devel cfitsio-devel fftw3-devel cmake3 gstreamer1-plugins-base pulseaudio-libs-glib2
-
-
+ADD Neutrino.desktop Neutrino.desktop
 ADD build.sh build.sh

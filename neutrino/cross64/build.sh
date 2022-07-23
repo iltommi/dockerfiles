@@ -12,7 +12,7 @@ git clone --recursive -j$(nproc) https://github.com/NeutrinoToolkit/Neutrino.git
 cd Neutrino
 mkdir cross && cd cross
 mingw64-cmake -DNEUTRINO_SKIP_PLUGINS='Shell' .. 
-make package
+make -j2 package
  
 cp Neutrino*.exe Neutrino*.zip /mnt
 
