@@ -11,6 +11,6 @@ wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/lin
 wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
 chmod +x linuxdeploy*.AppImage
 export APPIMAGE_EXTRACT_AND_RUN=1
-# export QML_SOURCES_PATHS=/Neutrino/src
-LD_LIBRARY_PATH=`pwd`/AppDir/usr/lib ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt --output appimage -i ../resources/icons/icon.svg --desktop-file=../resources/linuxPackage/Neutrino.desktop
+export LD_LIBRARY_PATH=`pwd`/AppDir/usr/lib
+./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt --output appimage -i ../resources/icons/icon.svg
 cp Neutrino-*.AppImage /mnt
