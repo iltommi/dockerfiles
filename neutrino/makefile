@@ -1,16 +1,19 @@
 
 
-default: backup dock mac publish
+default: prefetch backup dock mac publish
 
-publish:
-	cd ~/local/src/neutrinoMaster && gh release delete latest -y && git push origin :refs/tags/latest && git tag -fa latest -m "Commit $(git rev-list HEAD --count)" && git push --follow-tags; gh release create latest --generate-notes && gh release upload latest ~/local/docker/dockerfiles/neutrino/Neutrino-*
+publish: prefetch
+	cd Neutrino && gh release delete latest -y && git push origin :refs/tags/latest && git tag -fa latest -m "Commit $(git rev-list HEAD --count)" && git push --follow-tags; gh release create latest --generate-notes && gh release upload latest ../Neutrino-*
 
-.PHONY: backup
+.PHONY: backup prefetch
 backupdir = backup/$(shell date +"%Y-%m-%d-%H-%M")
 	
 backup: 
 	mkdir -p $(backupdir)
-	mv Neutrino*.exe Neutrino*.zip Neutrino*.dmg Neutrino*.deb Neutrino*.rpm Neutrino-*.AppImage $(backupdir)
+	-@mv Neutrino*.exe Neutrino*.zip Neutrino*.dmg Neutrino*.deb Neutrino*.rpm Neutrino-*.AppImage $(backupdir) 
+	
+prefetch:
+	git clone https://github.com/NeutrinoToolkit/Neutrino.git || cd Neutrino && git pull
 	
 dock: clean_dock
 	docker-compose down
