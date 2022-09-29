@@ -32,7 +32,7 @@ mkdir -p build_gcc && cd build_gcc
 cmake -DCMAKE_CXX_COMPILER=g++-12 -DQt5_DIR=/usr/local/opt/qt5/lib/cmake/Qt5 -DNEUTRINO_SKIP_PLUGINS=Shell ../Neutrino
 make -j$(sysctl -n hw.ncpu) install
 ../Neutrino/resources/macPackage/prepareapp.sh
-rm -rf ~/Neutrino*.dmg
-cp Neutrino-Darwin-x86_64.dmg ~
+rm -rf ~/Neutrino-`uname -s`-`uname -m`.*
+cp Neutrino-`uname -s`-`uname -m`.* ~
 cd ..
 

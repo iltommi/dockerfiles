@@ -23,11 +23,11 @@ dock: clean_dock
 
 mac: clean_mac
 	cd vagrant3; vagrant up
-	scp -P 2222 -i vagrant3/.vagrant/machines/default/virtualbox/private_key -o StrictHostKeyChecking=no vagrant@localhost:Neutrino-*.dmg .
+	scp -P 2222 -i vagrant3/.vagrant/machines/default/virtualbox/private_key -o StrictHostKeyChecking=no vagrant@localhost:Neutrino-*.* .
 	cd vagrant3; vagrant halt
 
 clean_mac:
-	rm -f Neutrino-MacOS*.dmg
+	rm -f Neutrino-Darwin-*.dmg
 	rm -f vagrant3/shared/*
 
 clean_dock:

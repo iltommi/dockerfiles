@@ -11,5 +11,5 @@ make install DESTDIR=AppDir
 # chmod +x linuxdeploy*.AppImage
 # export APPIMAGE_EXTRACT_AND_RUN=1
 # export LD_LIBRARY_PATH=`pwd`/AppDir/usr/lib
-/linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt --output appimage -i /mnt/Neutrino/resources/icons/icon.svg --custom-apprun=/mnt/Neutrino/resources/linuxPackage/AppRun
+/linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt --output appimage --custom-apprun=/mnt/Neutrino/resources/linuxPackage/AppRun
 cp Neutrino-*.AppImage /mnt

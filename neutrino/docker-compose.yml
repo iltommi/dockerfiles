@@ -17,6 +17,15 @@ services:
         entrypoint: /build.sh
         volumes:
             - .:/mnt 
+    # universal appimage 
+    appimage:
+        privileged: true
+        build:
+            context: ./appimage
+        command: /build.sh
+        entrypoint: /build.sh
+        volumes:
+            - .:/mnt 
     # linux deb variants
     ubuntu:
         privileged: true
@@ -51,12 +60,3 @@ services:
         entrypoint: /build.sh
         volumes:
             - .:/mnt
-    # universal appimage 
-    appimage:
-        privileged: true
-        build:
-            context: ./appimage
-        command: /build.sh
-        entrypoint: /build.sh
-        volumes:
-            - .:/mnt 

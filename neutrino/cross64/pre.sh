@@ -18,8 +18,8 @@ patch -p1 -u < hdf4-2-dllimport.patch
 libtoolize --force
 autoreconf --install
 mingw64-configure --disable-static --enable-shared --disable-fortran --disable-netcdf LIBS="-lportablexdr -lws2_32"  CPPFLAGS="-DH4_F77_FUNC\(name,NAME\)=NAME -DH4_BUILT_AS_DYNAMIC_LIB=1 -DBIG_LONGS"
-make -C mfhdf/xdr -j $(nproc) LDFLAGS=-no-undefined
-make -C hdf/src -j $(nproc) LDFLAGS=-no-undefined
+make -C mfhdf/xdr -j $(nproc) LDFLAGS="-no-undefined -lssp"
+make -C hdf/src -j $(nproc) LDFLAGS="-no-undefined -lssp"
 make -C hdf/src -j 1 install
 make -C mfhdf/libsrc -j $(nproc) LDFLAGS="-no-undefined -ldf"
 make -C mfhdf/libsrc -j 1 install
